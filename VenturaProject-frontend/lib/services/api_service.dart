@@ -6,10 +6,17 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  // Web (Chrome): pakai localhost
-  // Android emulator: pakai 10.0.2.2
-  // Device fisik: ganti dengan IP komputer kamu di LAN (misal 192.168.1.x)
+  // SAKLAR MODE BACKEND:
+  // Ubah ke true untuk testing lokal di laptop (pake run-ventura.bat)
+  // Ubah ke false jika ingin terhubung ke backend yang sudah di-hosting di internet (Render/Railway)
+  static const bool useLocalBackend = true; 
+
   static String get baseUrl {
+    if (!useLocalBackend) {
+      // Ganti URL ini dengan URL API Gateway Render Anda jika sudah dideploy
+      return 'https://ventura-gateway.onrender.com'; 
+    }
+
     if (kIsWeb) return 'http://localhost:3000';
     try {
       if (Platform.isAndroid) {
