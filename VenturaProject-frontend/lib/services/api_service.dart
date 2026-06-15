@@ -47,6 +47,7 @@ class ApiService {
     final token = await getToken();
     return {
       'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true',
       if (token != null) 'Authorization': 'Bearer $token',
     };
   }
@@ -61,7 +62,10 @@ class ApiService {
       final res = await http
           .post(
             Uri.parse('$baseUrl/auth/login'),
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+              'Content-Type': 'application/json',
+              'ngrok-skip-browser-warning': 'true',
+            },
             body: jsonEncode({'email': email, 'password': password}),
           )
           .timeout(const Duration(seconds: 10));
@@ -96,6 +100,7 @@ class ApiService {
         'POST',
         Uri.parse('$baseUrl/auth/register'),
       );
+      request.headers['ngrok-skip-browser-warning'] = 'true';
       request.fields['username'] = name;
       request.fields['email'] = email;
       request.fields['password'] = password;
@@ -140,7 +145,10 @@ class ApiService {
       final res = await http
           .post(
             Uri.parse('$baseUrl/auth/forgot-password'),
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+              'Content-Type': 'application/json',
+              'ngrok-skip-browser-warning': 'true',
+            },
             body: jsonEncode({'email': email}),
           )
           .timeout(const Duration(seconds: 10));
@@ -325,6 +333,7 @@ class ApiService {
         'PUT',
         Uri.parse('$baseUrl/auth/profile'),
       );
+      request.headers['ngrok-skip-browser-warning'] = 'true';
       if (token != null) {
         request.headers['Authorization'] = 'Bearer $token';
       }
@@ -383,7 +392,10 @@ class ApiService {
       final res = await http
           .post(
             Uri.parse('$baseUrl/auth/reset-password'),
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+              'Content-Type': 'application/json',
+              'ngrok-skip-browser-warning': 'true',
+            },
             body: jsonEncode({'email': email, 'password': password}),
           )
           .timeout(const Duration(seconds: 10));
@@ -407,6 +419,7 @@ class ApiService {
         'POST',
         Uri.parse('$baseUrl/travel/upload'),
       );
+      request.headers['ngrok-skip-browser-warning'] = 'true';
 
       if (kIsWeb && bytes != null) {
         request.files.add(
