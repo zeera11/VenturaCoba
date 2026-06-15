@@ -60,6 +60,19 @@ The Ventura backend follows a Microservices Architecture consisting of four inde
 | Finance Service | 3002 | Budgeting, expense tracking, and financial management |
 | Travel Service  | 3003 | Travel planning and recommendation generation         |
 ## Request Flow
+
+```text
+Client
+   │
+   ▼
+API Gateway (3000)
+   │
+   ├──► Auth Service (3001)
+   ├──► Finance Service (3002)
+   └──► Travel Service (3003)
+```
+All client requests pass through the API Gateway, which forwards them to the corresponding microservice.
+
 ## DTO (Data Transfer Object) and Validation
 Each microservice implements **DTOs (Data Transfer Objects)** to validate incoming requests before they reach the business logic layer.
 Each microservice implements DTOs (Data Transfer Objects) to validate incoming requests before they reach the business logic layer.
@@ -72,7 +85,7 @@ By validating incoming data at the service boundary, the system becomes more sec
 ## Authentication and Authorization
 To secure protected endpoints, the backend implements **JWT (JSON Web Token) Authentication** using:
 To secure protected endpoints, the backend implements JWT (JSON Web Token) Authentication using:
-### JWT Strategy
+## JWT Strategy
 The combination of JWT Strategy and JWT Guard helps ensure secure communication between clients and backend services while maintaining stateless authentication.
 ## API Endpoints
 All endpoints are accessed through the **API Gateway (Port 3000)**.
