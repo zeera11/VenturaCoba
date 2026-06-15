@@ -86,22 +86,7 @@ export class RecommendationService {
   }
 
   generate(dto) {
-    const destination = this.destinations.find(
-      (d) =>
-        d.city.toLowerCase() ===
-        dto.city.toLowerCase(),
-    );
-
-    if (!destination) {
-      throw new NotFoundException(
-        `Destination '${dto.city}' not found. Available: ${this.destinations.map(d => d.city).join(', ')}`,
-      );
-    }
-
-    return this.engine.process(
-      dto,
-      [destination],
-    );
+    return this.engine.process(dto, this.destinations);
   }
 
   // ── ITINERARY CRUD METHODS ───────────────────────────

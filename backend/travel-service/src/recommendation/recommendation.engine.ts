@@ -6,8 +6,6 @@ const itineraryGen = new ItineraryGenerator();
 @Injectable()
 export class RecommendationEngine {
   process(dto, destinations) {
-    const dest = destinations[0];
-
     const dailyBudget = dto.budget / dto.days;
     const round = (n: number) => Math.round(n);
 
@@ -26,30 +24,53 @@ export class RecommendationEngine {
         ? 'Balanced Trip'
         : 'Slow & Explore Trip';
 
-    let score = 0;
+    // Hitung skor SAW untuk semua destinasi
+    const scoredDestinations = destinations.map((dest) => {
+      let score = 0;
 
-    if (dto.categories && dto.categories.some((c) => dest.categories.includes(c))) {
-      score += 40;
-    }
+      // Kriteria 1: Pencocokan Kategori (Bobot: 40)
+      if (dto.categories && dto.categories.some((c) => dest.categories.includes(c))) {
+        score += 40;
+      }
 
-    if (dest.estimatedDailyBudget <= dailyBudget) {
-      score += 30;
-    }
+      // Kriteria 2: Kesesuaian Anggaran Harian (Bobot: 30)
+      if (dest.estimatedDailyBudget <= dailyBudget) {
+        score += 30;
+      }
 
-    if (dest.city.toLowerCase().includes(dto.city.toLowerCase())) {
-      score += 30;
-    }
+      // Kriteria 3: Kota Preferensi (Bobot: 30)
+      if (dto.city && dest.city.toLowerCase().includes(dto.city.toLowerCase())) {
+        score += 30;
+      }
 
-    const itineraryResult = itineraryGen.generate(dest.city, dto.days);
+      const itineraryResult = itineraryGen.generate(dest.city, dto.days);
+
+      return {
+        ...dest,
+        score,
+        dailyBudget,
+        budgetPlan,
+        itineraryType: tripType,
+        itinerary: itineraryResult,
+        explanation: `${tripType} dengan skor SAW ${score}/100 – kecocokan terbaik untuk gaya perjalanan ${(dto.categories || []).join(', ')}`,
+      };
+    });
+
+    // Urutkan berdasarkan skor tertinggi (Ranked Descending)
+    scoredDestinations.sort((a, b) => b.score - a.score);
+
+    // Ambil hasil terbaik
+    const bestMatch = scoredDestinations[0];
 
     return {
-      ...dest,
-      score,
-      dailyBudget,
-      budgetPlan,
-      itineraryType: tripType,
-      itinerary: itineraryResult,
-      explanation: `${tripType} – best match for ${(dto.categories || []).join(', ')} travel style`,
+      ...bestMatch,
+      rankings: scoredDestinations.map((d, index) => ({
+        rank: index + 1,
+        city: d.city,
+        score: d.score,
+        estimatedDailyBudget: d.estimatedDailyBudget,
+        categories: d.categories,
+      })),
     };
   }
 }
