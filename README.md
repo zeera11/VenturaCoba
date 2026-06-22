@@ -34,6 +34,50 @@ Smart travel planning application that helps users discover destinations, genera
   </tr>
 </table>
 
+---
+## Installation
+Untuk menginstal seluruh dependensi backend dan frontend secara otomatis, jalankan perintah ini di root folder:
+```bash
+npm run install:all
+```
+### 1. Lokasi untuk File serviceAccountKey.json (Firebase)
+File JSON kredensial dari Firebase Console ini harus diletakkan di dalam folder `src/config` pada setiap service backend:
+* **Auth Service:** `backend/auth-service/src/config/serviceAccountKey.json`
+* **Finance Service:** `backend/finance-service/src/config/serviceAccountKey.json`
+* **Travel Service:** `backend/travel-service/src/config/serviceAccountKey.json`
+### 2. Lokasi untuk File .env (Environment Variables)
+File konfigurasi variabel ini diletakkan di root folder dari masing-masing microservice (bukan di dalam folder `src`):
+* **Auth Service:** `backend/auth-service/.env`
+* **Finance Service:** `backend/finance-service/.env`
+* **Travel Service:** `backend/travel-service/.env`
+*(Catatan: Anda tinggal menyalin file yang sudah Anda miliki di laptop Anda saat ini ke folder-folder tersebut).*
+---
+
+## Menjalankan Proyek (Pengembangan Lokal)
+### Opsi 1: Mulai Cepat (Windows)
+Jalankan skrip batch di bawah ini untuk memulai Ventura melalui menu interaktif:
+```cmd
+run-ventura.bat
+```
+### Opsi 2: Memulai Secara Manual (Terminal)
+#### Jalankan Semua Layanan Backend
+Mulai semua layanan mikro backend secara bersamaan:
+```bash
+npm run start:backend
+```
+#### Jalankan Layanan Secara Terpisah
+Jika diperlukan, setiap layanan juga dapat dijalankan secara terpisah:
+```bash
+# API Gateway
+npm run start:gateway
+# Layanan Autentikasi (Auth Service)
+npm run start:auth
+# Layanan Keuangan (Finance Service)
+npm run start:finance
+# Layanan Perjalanan (Travel Service)
+npm run start:travel
+```
+
 ## Tech Stack
 ### Frontend
 * Flutter
@@ -110,46 +154,4 @@ GET  /travel/destinations
 POST /travel/recommendation
 POST /travel/itinerary
 GET  /travel/itinerary/list
-```
----
-## Installation
-Untuk menginstal seluruh dependensi backend dan frontend secara otomatis, jalankan perintah ini di root folder:
-```bash
-npm run install:all
-```
-### 1. Lokasi untuk File serviceAccountKey.json (Firebase)
-File JSON kredensial dari Firebase Console ini harus diletakkan di dalam folder `src/config` pada setiap service backend:
-* **Auth Service:** `backend/auth-service/src/config/serviceAccountKey.json`
-* **Finance Service:** `backend/finance-service/src/config/serviceAccountKey.json`
-* **Travel Service:** `backend/travel-service/src/config/serviceAccountKey.json`
-### 2. Lokasi untuk File .env (Environment Variables)
-File konfigurasi variabel ini diletakkan di root folder dari masing-masing microservice (bukan di dalam folder `src`):
-* **Auth Service:** `backend/auth-service/.env`
-* **Finance Service:** `backend/finance-service/.env`
-* **Travel Service:** `backend/travel-service/.env`
-*(Catatan: Anda tinggal menyalin file yang sudah Anda miliki di laptop Anda saat ini ke folder-folder tersebut).*
----
-## Run Project (Local Development)
-### Option 1: Quick Start (Windows)
-Run the batch script below to start Ventura through an interactive menu:
-```cmd
-run-ventura.bat
-```
-### Option 2: Manual Start (Terminal)
-#### Run All Backend Services
-Start all backend microservices simultaneously:
-```bash
-npm run start:backend
-```
-#### Run Individual Services
-If needed, each service can also be started separately:
-```bash
-# API Gateway
-npm run start:gateway
-# Auth Service
-npm run start:auth
-# Finance Service
-npm run start:finance
-# Travel Service
-npm run start:travel
 ```
