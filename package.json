@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Monorepo containing Ventura frontend (Flutter) and backend (NestJS microservices)",
   "scripts": {
+    "start": "npm run start:all:chrome",
     "install:backend": "npm install --prefix backend/api-gateway && npm install --prefix backend/auth-service && npm install --prefix backend/finance-service && npm install --prefix backend/travel-service",
     "install:frontend": "flutter pub get --directory=VenturaProject-frontend",
     "install:all": "npm run install:backend && npm run install:frontend",

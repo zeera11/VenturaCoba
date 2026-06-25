@@ -13,7 +13,11 @@ async function bootstrap() {
   app.enableCors({
     origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'ngrok-skip-browser-warning',
+    ],
     credentials: true,
   });
 
