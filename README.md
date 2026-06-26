@@ -51,10 +51,9 @@ Jika menggunakan VS Code, instal ekstensi berikut melalui menu Extensions (`Ctrl
 
 ---
 
-## Langkah Instalasi & Konfigurasi
 ## Menjalankan Proyek di Browser (Chrome)
 ### Opsi 1: Mulai Cepat via Menu Interaktif (Windows)
-Jika Anda menggunakan Windows, cukup jalankan skrip batch berikut di terminal:
+Jika Anda menggunakan Windows, cukup jalankan file .bat berikut di folder VenturaProject:
 ```cmd
 run-ventura.bat
 ```
