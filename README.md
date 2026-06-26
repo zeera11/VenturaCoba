@@ -35,14 +35,13 @@ Smart travel planning application that helps users discover destinations, genera
 </table>
 
 
-## Prasyarat Software & Editor (PENTING: Agar Tidak Ada Garis Merah)
+## Prasyarat Software & Editor 
 
 Sebelum memulai instalasi, pastikan Anda telah menginstal software dan ekstensi berikut agar kode terbaca dengan benar di editor (VS Code) dan tidak muncul garis merah:
 
 ### 1. Software Utama (Wajib Terinstal di OS)
 * **[Node.js](https://nodejs.org/) (Versi 18 LTS atau 20 LTS)** – Untuk menjalankan server backend NestJS.
 * **[Flutter SDK](https://docs.flutter.dev/get-started/install)** – Pastikan perintah `flutter` sudah bisa dipanggil di terminal/command prompt.
-* **[Git](https://git-scm.com/)** – Untuk melakukan klon dan kontrol versi.
 * **Google Chrome** – Browser utama untuk menjalankan aplikasi frontend.
 
 ### 2. Ekstensi VS Code (Wajib Diinstal di VS Code)
@@ -53,43 +52,7 @@ Jika menggunakan VS Code, instal ekstensi berikut melalui menu Extensions (`Ctrl
 ---
 
 ## Langkah Instalasi & Konfigurasi
-### 1. Dapatkan File Kredensial Firebase (`serviceAccountKey.json`)
-Aplikasi backend memerlukan kredensial Firebase Admin SDK untuk mengakses database Firestore.
-1. Buka [Firebase Console](https://console.firebase.google.com/) lalu masuk/buat proyek Firebase Anda.
-2. Aktifkan **Cloud Firestore Database** di proyek Anda.
-3. Masuk ke **Project Settings** (Setelan Proyek - ikon gerigi di kiri atas) > tab **Service Accounts** (Akun Layanan).
-4. Klik tombol **Generate new private key** (Buat kunci privat baru) di bagian bawah.
-5. Sebuah file JSON akan terunduh secara otomatis.
-6. Ganti nama file tersebut menjadi `serviceAccountKey.json`.
-7. Salin file `serviceAccountKey.json` tersebut dan letakkan di dalam folder `src/config` pada setiap service backend berikut:
-   * **Auth Service:** `backend/auth-service/src/config/serviceAccountKey.json`
-   * **Finance Service:** `backend/finance-service/src/config/serviceAccountKey.json`
-   * **Travel Service:** `backend/travel-service/src/config/serviceAccountKey.json`
-
-### 2. Setup File Konfigurasi Environment (`.env`)
-Salin file template `.env.example` menjadi `.env` di masing-masing folder microservice:
-* **Auth Service:** Salin `backend/auth-service/.env.example` menjadi `backend/auth-service/.env`, lalu isi `JWT_SECRET`.
-* **Finance Service:** Salin `backend/finance-service/.env.example` menjadi `backend/finance-service/.env`, lalu isi `JWT_SECRET`.
-
-*(Catatan penting: Nilai `JWT_SECRET` bebas diisi teks apa saja, namun nilainya **harus sama** di semua service backend agar token login dapat divalidasi dengan benar).*
-
-### 3. Install Dependensi
-Jalankan perintah ini di root folder proyek untuk menginstal seluruh dependensi backend dan frontend secara otomatis:
-```bash
-npm run install:all
-```
-
-#### 💡 Cara Mengatasi Garis Merah di Editor (VS Code) setelah Install:
-Jika Anda melihat banyak garis merah (error import/library) di VS Code Anda atau teman Anda setelah instalasi selesai:
-1. **Untuk Backend (NestJS)**: Pastikan Anda telah membuka folder root proyek `ventura_app`. Jika instalasi sukses, garis merah akan hilang secara otomatis. Jika ada service yang masih merah, buka terminal di folder service tersebut (misalnya `backend/auth-service`) lalu ketik `npm install --legacy-peer-deps`.
-2. **Untuk Frontend (Flutter)**: 
-   * Buka terminal, masuk ke folder `VenturaProject-frontend` lalu jalankan perintah `flutter pub get`.
-   * Jika masih merah, buka Command Palette di VS Code dengan menekan **`Ctrl + Shift + P`** (atau **`Cmd + Shift + P`** di Mac), lalu ketik dan pilih **`Dart: Restart Analysis Server`**. Ini akan menyegarkan analisis kode Flutter Anda.
-
----
-
 ## Menjalankan Proyek di Browser (Chrome)
-
 ### Opsi 1: Mulai Cepat via Menu Interaktif (Windows)
 Jika Anda menggunakan Windows, cukup jalankan skrip batch berikut di terminal:
 ```cmd
@@ -105,18 +68,6 @@ Cukup jalankan satu perintah berikut untuk memulai seluruh microservice backend 
 ```bash
 npm run start:all:chrome
 ```
-
-#### 2. Jalankan Backend dan Frontend Secara Terpisah
-Jika Anda ingin melihat log/output dari masing-masing bagian secara terpisah:
-
-* **Jalankan Semua Layanan Backend:**
-  ```bash
-  npm run start:backend
-  ```
-* **Jalankan Frontend di Browser Chrome:**
-  ```bash
-  npm run start:frontend:chrome
-  ```
 
 ## Tech Stack
 ### Frontend
